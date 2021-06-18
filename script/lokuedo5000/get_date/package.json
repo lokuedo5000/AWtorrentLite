@@ -1,0 +1,15 @@
+{
+  "name": "get_date",
+  "version": "1.0.0",
+  "description": "Get Date",
+  "main": "main.js",
+  "scripts": {
+    "date": "node ./"
+  },
+  "keywords": [],
+  "author": "@lokuedo5000",
+  "license": "ISC",
+  "dependencies": {
+    "node-datetime": "^2.1.2"
+  }
+}

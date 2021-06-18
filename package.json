@@ -1,0 +1,44 @@
+{
+  "name": "awtorrentlite",
+  "version": "1.0.0",
+  "description": "AwTorrentLite",
+  "main": "script/main.js",
+  "config": {
+    "port": "8544",
+    "host": "localhost",
+    "open": true,
+    "dbJson": ""
+  },
+  "scripts": {
+    "start": "electron ./",
+    "win": "electron-packager . AwTorrentLite --overwrite --platform=win32 --arch=ia32 --icon=data/assets/icons/win/ico#3.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"AwTorrentLite\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lokuedo5000/awtorrentlite.git"
+  },
+  "keywords": [
+    "AppWeb",
+    "AppWebTorrent",
+    "Torrent"
+  ],
+  "author": "lokuedo5000",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "electron-unhandled": "^3.0.2",
+    "electron-util": "^0.16.0",
+    "electron-window-state-manager": "^0.3.2",
+    "express": "^4.17.1",
+    "extract-zip": "^1.7.0",
+    "file-size": "^1.0.0",
+    "jquery": "^3.6.0",
+    "parse-torrent": "^9.1.3",
+    "uuid": "^8.3.2",
+    "webtorrent": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron": "^13.0.1",
+    "electron-packager": "^15.2.0"
+  }
+}
