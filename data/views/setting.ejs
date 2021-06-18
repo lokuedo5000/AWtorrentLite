@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Setting | AwTorrentLite</title>
+  <!-- Files Css & Ico -->
+  <%- include('../partial/link.ejs') %>
+</head>
+
+<body class="inicio" data-script="setting">
+  <div class="borderwin">
+    <!-- Drag -->
+    <%- include('../partial/drag.ejs') %>
+    <div class="body">
+      <!-- Menu -->
+      <%- include('../partial/menu.ejs') %>
+
+      <!-- Contenedor -->
+      <!-- Scroll -->
+      <div class="scroll">
+        <!-- Search Menu -->
+        <%- include('../partial/search.ejs') %>
+        <ul class="nav nav-pills nav-fill sl_nav">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">AppWeb</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Torrent</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="historial-tab" data-bs-toggle="tab" data-bs-target="#historial" type="button" role="tab" aria-controls="historial" aria-selected="false">Historial</a>
+          </li>
+        </ul>
+        <div class="container">
+          <form class="pd_all_tp form_cog" method="post" spellcheck="false" id="loadtorrent">
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h5 class="sv_setting" data-cog='appweb'>AppWeb</h5>
+
+                <div class="grot">
+                  <label class="form-label">DB Json</label>
+                  <input type="text" class="form-control" name="db" placeholder="{...}">
+                </div>
+
+                <div class="grot">
+                  <label class="form-label">Update Link</label>
+                  <input type="text" class="form-control" name="update" placeholder="{...}">
+                </div>
+
+                <div class="grot">
+                  <label class="form-label">Host & Port</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">localhost:</span>
+                    <input type="number" class="form-control" name="port" aria-describedby="basic-addon3" placeholder="{...}" min="1" max="8990">
+                  </div>
+                </div>
+                <div class="grot" id="theme">
+                  <label class="form-label">Theme (bootswatch)</label>
+                  <select class="form-select theme_save" name="theme" aria-label="Default select example">
+                    <option value="bootstrap.min" selected>Default</option>
+                    <option value="yeti">Yeti</option>
+                    <option value="vapor">Vapor</option>
+                    <option value="united">United</option>
+                    <option value="sketchy">Sketchy</option>
+                    <option value="simplex">Simplex</option>
+                    <option value="minty">Minty</option>
+                    <option value="lux">Lux</option>
+                  </select>
+                </div>
+
+
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h5 class="sv_setting trrs" data-cog='torrent'>Torrents</h5>
+
+                <div class="grot">
+                  <label class="form-label">Save files to</label>
+                  <select class="form-select sl_save" name="save" aria-label="Default select example">
+                    <option value="default" selected>Default</option>
+                    <option value="downloads">Downloads</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="choose">Choose where to save</option>
+                  </select>
+                </div>
+
+                <div class="grot">
+                  <label class="form-label">Tracker</label>
+                  <textarea class="form-control tx_tr" name="tracker" rows="9"></textarea>
+                </div>
+
+              </div>
+              <div class="tab-pane fade" id="historial" role="tabpanel" aria-labelledby="historial-tab">
+                <h5>Historial</h5>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sscript Files -->
+  <%- include('../partial/scriptfiles.ejs') %>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.form_cog').change(function(event) {
+        $('.trrs').click();
+      });
+
+      // $('.tx_tr').change(function(event) {
+      //   $('.trrs').click();
+      // });
+      //
+      // $('.theme_save').change(function(event) {
+      //   $('.trrs').click();
+      // });
+
+    });
+  </script>
+
+</body>
+
+</html>

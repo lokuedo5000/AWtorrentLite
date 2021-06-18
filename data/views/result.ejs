@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Result | AwTorrentLite</title>
+  <!-- Files Css & Ico -->
+  <%- include('../partial/link.ejs') %>
+</head>
+
+<body class="inicio" data-script="result">
+  <div class="borderwin">
+    <!-- Drag -->
+    <%- include('../partial/drag.ejs') %>
+    <div class="body">
+      <!-- Menu -->
+      <%- include('../partial/menu.ejs') %>
+
+      <!-- Contenedor -->
+      <!-- Scroll -->
+      <div class="scroll">
+        <!-- Search Menu -->
+        <%- include('../partial/search.ejs') %>
+        <div class="py-3">
+          <div class="container">
+            <h5>Resultados (<span class="rst"></span>)</h5>
+            <div id="result">
+              <!-- <div class="card mb-3 sprts" style="max-width: 100%;">
+                <div class="row g-0">
+                  <div class="col-md-3">
+                    <div class="cover_result" style="background-image: url(https://i.imgur.com/yp26E6f.jpg);"></div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-text">Generos: <span class="genes">Accion</span></h6>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <div class="btn_ir_post">
+                        <div class="btn btn-primary">Download</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sscript Files -->
+  <%- include('../partial/scriptfiles.ejs') %>
+
+  <!-- DB -->
+  <%- include('../partial/script/db.ejs') %>
+
+  <script type="text/javascript">
+    // Get Result
+    function searchGet(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var v = searchGet('v');
+    var artfilter = search(v);
+
+    $('.rst').text(v);
+
+    if (artfilter.length == 0) {
+
+    }
+
+    // Add Result
+    var row_add = document.querySelector("#result");
+    row_add.innerHTML = '';
+    for (var i = 0; i < artfilter.length; i++) {
+      row_add.innerHTML += rows(artfilter[i].titulo, artfilter[i].cover, artfilter[i].dcp, artfilter[i].urls, artfilter[i].generos);
+    }
+
+    function rows(titulo, cover, dcp, urls, generos) {
+      return `
+      <div class="card mb-3 sprts" style="max-width: 100%;">
+        <div class="row g-0">
+          <div class="col-md-3">
+            <div class="cover_result" style="background-image: url(${cover});"></div>
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title">${titulo}</h5>
+              <h6 class="card-text">Generos: ${gns(generos)}</h6>
+              <p class="card-text">${short(remplaNor(dcp), 100)}</p>
+              <div class="btn_ir_post">
+                <a href="/Where?v=${urls}" class="btn btn-primary">Download</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+    }
+    // SEARCH
+    function search(keyword) {
+      /*PARSE JSON*/
+      var data = db.articulos;
+      // BUSCADOR ALL
+      var search_fields = ['tags', 'generos'] //key fields to search for in dataset
+      if (keyword.length < 1) // skip if input is empty
+        return
+
+      var results = []
+
+      for (var i in data) { // iterate through dataset
+        for (var u = 0; u < search_fields.length; u++) { // iterate through each key in dataset
+
+          var rel = getRelevance(data[i][search_fields[u]], keyword) // check if there are matches
+
+          if (rel == 0) // no matches...
+            continue // ...skip
+
+          results.push({
+            relevance: rel,
+            entry: data[i]
+          }) // matches found, add to results and store relevance
+        }
+      }
+
+      results.sort(compareRelevance) // sort by relevance
+
+      for (i = 0; i < results.length; i++) {
+        results[i] = results[i].entry // remove relevance since it is no longer needed
+      }
+
+      return results
+    }
+
+    function getRelevance(value, keyword) {
+      value = value.toLowerCase() // lowercase to make search not case sensitive
+      keyword = keyword.toLowerCase()
+
+      var index = value.indexOf(keyword) // index of the keyword
+      var word_index = value.indexOf(' ' + keyword) // index of the keyword if it is not on the first index, but a word
+
+      if (index == 0) // value starts with keyword (eg. for 'Dani California' -> searched 'Dan')
+        return 3 // highest relevance
+      else if (word_index != -1) // value doesnt start with keyword, but has the same word somewhere else (eg. 'Dani California' -> searched 'Cali')
+        return 2 // medium relevance
+      else if (index != -1) // value contains keyword somewhere (eg. 'Dani California' -> searched 'forn')
+        return 1 // low relevance
+      else
+        return 0 // no matches, no relevance
+    }
+
+    function compareRelevance(a, b) {
+      return b.relevance - a.relevance
+    }
+
+    /* Texto Normal */
+    function remplaNor(text) {
+      return text.replace(/&quot;/g, '"')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&#39;/g, "'")
+        .replace(/-\(/g, "")
+        .replace(/\)-/g, "");
+    }
+    /* Acortar Texto */
+    function short(text, num) {
+      if (text.length > num) {
+        return text.slice(0, num) + '...';
+      } else {
+        return text;
+      }
+    }
+    /* Generos */
+    function gns(text) {
+      var d = "";
+
+      var comvert = text.split(",");
+      for (var get in comvert) {
+        d += `<span class="genes" onclick="openatc('${comvert[get]}')">${mfirst(comvert[get])}</span>`;
+      }
+      return d;
+    }
+
+    // Open Web
+    function openatc(url) {
+      location.href = '/result?v=' + url;
+    }
+    /* Primera Letra Mayuscula */
+    function mfirst(text) {
+      var getnum = text.length;
+      var firstletter = text.slice(0, 1)
+      var mayutext = firstletter.toUpperCase();
+
+      var deletefirst = text.slice(1, getnum)
+      return mayutext + deletefirst;
+    }
+
+  </script>
+
+</body>
+
+</html>

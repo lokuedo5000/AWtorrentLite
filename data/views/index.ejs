@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home | AwTorrentLite</title>
+  <!-- Files Css & Ico -->
+  <%- include('../partial/link.ejs') %>
+</head>
+
+<body class="inicio" data-script="home">
+  <div class="borderwin">
+    <!-- Drag -->
+    <%- include('../partial/drag.ejs') %>
+    <div class="body">
+      <!-- Menu -->
+      <%- include('../partial/menu.ejs') %>
+
+      <!-- Contenedor -->
+
+      <!-- Scroll -->
+      <div class="scroll">
+        <!-- Search Menu -->
+        <%- include('../partial/search.ejs') %>
+        <div class="bn_1">
+          <div class="banner_img">
+          </div>
+          <div class="contener_form">
+            <div class="titulotorrent">Free Download of Torrent files</div>
+            <form class="searchtorrent">
+              <div class="input_load-file">
+                <div class="input_text">
+                  <div class="input_set_text openfile">{...}</div>
+                </div>
+                <div class="cwI-cloud-upload1 fileload openfile"></div>
+              </div>
+            </form>
+            <div class="sprt"></div>
+            <div class="titulotorrent">Free Download</div>
+            <div class="ifo_des">
+              <div class="co_ico">
+                <div class="ico_co cwI-cloud-download"></div>
+                <div class="text_co">
+                  [5] Downloads at the same time
+                </div>
+              </div>
+
+              <div class="co_ico">
+                <div class="ico_co cwI-mask"></div>
+                <div class="text_co">
+                  [100%] Anonymous User
+                </div>
+              </div>
+
+              <div class="co_ico">
+                <div class="ico_co cwI-play1"></div>
+                <div class="text_co">
+                  [100%] Start where you left off
+                </div>
+              </div>
+            </div>
+            <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button> -->
+            <!-- <textarea name="name" rows="8" cols="80" class="tx_tr"></textarea> -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="d-none">
+    <div class="runtoast"></div>
+  </div>
+  <!-- Sscript Files -->
+  <%- include('../partial/scriptfiles.ejs') %>
+
+</body>
+
+</html>

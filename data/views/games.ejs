@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Games | AwTorrentLite</title>
+  <!-- Files Css & Ico -->
+  <%- include('../partial/link.ejs') %>
+</head>
+
+<body class="inicio" data-script="games">
+  <div class="borderwin">
+    <!-- Drag -->
+    <%- include('../partial/drag.ejs') %>
+    <div class="body">
+      <!-- Menu -->
+      <%- include('../partial/menu.ejs') %>
+      <!-- Contenedor -->
+      <!-- Scroll -->
+      <div class="scroll">
+        <!-- Search Menu -->
+        <%- include('../partial/search.ejs') %>
+        <div class="container">
+          <div class="py-3">
+            <h5>Games</h5>
+            <div class="setall">
+
+              <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-md-4" id="games">
+
+
+                <div class="col">
+                  <div class="cover" style="background-image: url();">
+                    <div class="c_btn_trailer">
+                      <div class="btn_trailer">
+                        <div class="play_ic cwI-play"></div>
+                      </div>
+                    </div>
+                    <div class="c_btn_des">
+                      <div class="btn_des">
+                        Download
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sscript Files -->
+  <%- include('../partial/scriptfiles.ejs') %>
+  <script src="js/pagination.min.js" charset="utf-8"></script>
+
+
+  <!-- Games -->
+  <%- include('../partial/script/db.ejs') %>
+  <!-- Script Games -->
+  <%- include('../partial/script/games.ejs') %>
+  <script src="js/games.js" charset="utf-8"></script>
+
+</body>
+
+</html>

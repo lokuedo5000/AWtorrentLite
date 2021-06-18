@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>AppWeb | Download</title>
+  <!-- Files Css & Ico -->
+  <%- include('../partial/link.ejs') %>
+
+  <style media="screen">
+    .posicenter {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      font-weight: 200;
+      text-transform: uppercase;
+    }
+
+    .posicenter h5 {
+      font-size: 20px;
+      font-weight: 200;
+      text-transform: uppercase;
+    }
+
+    h6 {
+      font-size: 20px;
+      font-weight: 200;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h6 class="name_app"></h6>
+
+  <div class="text-center posicenter">
+    <h5>Terminando...</h5>
+    <h6><span>|</span> <span class="games"></span> <span>|</span></h6>
+    <button type="button" class="btn btn-primary descargar">Descargar</button>
+  </div>
+
+
+
+  <script src="js/jquery-3.5.1.js" charset="utf-8"></script>
+  <script src="bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
+  <script>
+    /* Obtener Datos de la Url */
+    $(document).ready(function() {
+      function getVar(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      var id = getVar('v');
+
+
+      var db = <%-JSON.stringify(games.articulos, null, 0)%>;
+      var nm = db.filter(all => all.urls == id);
+
+      document.querySelector('.games').innerText = nm[0].nombre;
+
+      $('.descargar').click(function(event) {
+        $.ajax({
+          type: "POST",
+          url: "/des",
+          data: {'id': getVar('v')},
+          success: function(data)
+          {
+            // var str = data;
+            // str = str.replace(/\s+/g, '');
+            console.log(data);
+          }
+        });
+      });
+
+
+    });
+  </script>
+</body>
+
+</html>
